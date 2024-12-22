@@ -1,7 +1,30 @@
 #include <iostream>
+#include "account/AccountManager.h"
+#include "book/BookManager.h"
+#include "menu/MenuManager.h"
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+using namespace std;
 
-int main(int argc, char** argv) {
-	return 0;
+// 全局变量
+UserManager userManager;
+BookManager bookManager;
+
+int main() {
+    // 加载数据
+    userManager.loadUsers("users.txt");
+    bookManager.loadBooks("books.txt");
+
+    // 创建 AccountManager 和 MenuManager 实例
+    AccountManager accountManager(userManager);
+    MenuManager menuManager(accountManager, bookManager);
+
+    // 显示主菜单
+    menuManager.mainMenu();
+
+    // 保存数据
+    userManager.saveUsers("users.txt");
+    bookManager.saveBooks("books.txt");
+
+    return 0;
 }
+
