@@ -15,8 +15,9 @@ void ReaderMenu::readerMenu() {
         cout << "1. 搜索图书" << endl;
         cout << "2. 借书" << endl;
         cout << "3. 还书" << endl;
-        cout << "4. 返回上一级菜单" << endl;
-        cout << "请选择（1-4）：";
+        cout << "4. 显示所有图书" << endl;
+        cout << "5. 返回上一级菜单" << endl;
+        cout << "请选择（1-5）：";
         cin >> choice;
 
         switch (choice) {
@@ -59,9 +60,14 @@ void ReaderMenu::readerMenu() {
             bookManager.returnBook(title);
             break;
         }
-        case 4:
+        case 5:{
             exitMenu = true;
             break;
+        }
+        case 4:{
+			bookManager.displayAllBooks();
+            break;
+        }
         default:
             cout << "无效选择，请重试！" << endl;
             break;
