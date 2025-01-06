@@ -1,21 +1,37 @@
 #include "BookManager.h"
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
 // 加载图书信息
 void BookManager::loadBooks(const string &filename) {
-	ifstream file(filename);
-	if (!file.is_open()) return;
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "无法打开文件：" << filename << endl;
+        return;
+    }
 
-	string title, isbn, author, publisher;
-	double price;
-	while (file >> title >> isbn >> author >> publisher >> price) {
-		books.emplace_back(title, isbn, author, publisher, price);
-	}
-	file.close();
+    string line;
+    while (getline(file, line)) {
+        string title, isbn, author, publisher;
+        double price;
+
+        // 使用字符串流解析每一行
+        istringstream stream(line);
+
+        getline(stream, title, '|'); // 用 "|" 作为分隔符读取图书名称
+        getline(stream, isbn, '|'); // 读取 ISBN
+        getline(stream, author, '|'); // 读取作者
+        getline(stream, publisher, '|'); // 读取出版社
+        stream >> price; // 读取价格
+
+        books.emplace_back(title, isbn, author, publisher, price);
+    }
+    file.close();
 }
+
 
 // 删除图书
 void BookManager::deleteBook(const string &title) {
@@ -51,13 +67,22 @@ void BookManager::updateBook(const string &title) {
 
 // 保存图书信息
 void BookManager::saveBooks(const string &filename) {
-	ofstream file(filename);
-	for (const auto &book : books) {
-		file << book.title << " " << book.isbn << " " << book.author << " "
-		     << book.publisher << " " << book.price << endl;
-	}
-	file.close();
+    ofstream file(filename);
+    if (!file.is_open()) {
+        cout << "无法打开文件：" << filename << endl;
+        return;
+    }
+
+    for (const auto &book : books) {
+        file << book.title << "|" 
+             << book.isbn << "|"
+             << book.author << "|"
+             << book.publisher << "|"
+             << book.price << endl; // 使用 "|" 作为分隔符
+    }
+    file.close();
 }
+
 
 // 添加图书
 void BookManager::addBook(const Book &book) {

@@ -1,3 +1,4 @@
-C++ 123456 Moyuin Inconewt 20
-Java 789123 Alice WonderlandPress 35
-Python 456789 Bob RiverPub 25
+C++|123456|Moyuin|Inconewt|20
+Java Programming|789123|Alice|WonderlandPress|35
+Python Basics|456789|Bob|RiverPub|25
+Linux For CyberSecurity|123123456|Moyuin|Inconewt|100
