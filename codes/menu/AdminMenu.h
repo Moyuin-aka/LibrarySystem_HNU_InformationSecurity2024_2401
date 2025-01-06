@@ -13,7 +13,6 @@ private:
 public:
     AdminMenu(AccountManager &am, BookManager &bm); // 构造函数
     void adminMenu(); // 管理员菜单
-    void manageUsers(); // 用户管理功能
 
 };
 

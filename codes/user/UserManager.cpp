@@ -73,16 +73,55 @@ void UserManager::displayUsers() {
 	}
 }
 
-//重置用户密码
-void UserManager::resetPassword(const string &username, const string &newPassword) {
-	for (auto &user : users) {
-		if (user.username == username) {
-			user.password = newPassword;
-			cout << "密码已成功重置！" << endl;
-			return;
-		}
-	}
-	cout << "未找到用户名为 \"" << username << "\" 的用户。" << endl;
+// 查找用户
+User* UserManager::findUser(const string &username) {
+    for (auto &user : users) {
+        if (user.username == username) {
+            return &user;
+        }
+    }
+    return nullptr;
+}
+
+
+// 重置用户密码
+void UserManager::resetPassword(const string &username) {
+    User* user = findUser(username);
+    if (user) {
+        user->password = "123456"; // 重置为默认密码
+        user->needsPasswordReset = true; // 标记为需要重置密码
+        cout << "用户 " << username << " 的密码已重置为默认密码（123456）。" << endl;
+    } else {
+        cout << "用户 " << username << " 不存在！" << endl;
+    }
+}
+
+// 登录验证
+bool UserManager::validateLogin(const string &username, const string &password) {
+    User* user = findUser(username);
+    if (user && user->password == password) {
+        return true;
+    }
+    return false;
+}
+
+// 检查是否需要重置密码
+bool UserManager::needsPasswordReset(const string &username) {
+    User* user = findUser(username);
+    if (user) {
+        return user->needsPasswordReset;
+    }
+    return false;
+}
+
+// 更新用户密码
+void UserManager::updatePassword(const string &username, const string &newPassword) {
+    User* user = findUser(username);
+    if (user) {
+        user->password = newPassword;
+        user->needsPasswordReset = false; // 更新密码后取消重置标记
+        cout << "用户 " << username << " 的密码已成功更新！" << endl;
+    }
 }
 
 //删除用户

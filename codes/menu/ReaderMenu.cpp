@@ -3,13 +3,24 @@
 using namespace std;
 
 // 构造函数实现
-ReaderMenu::ReaderMenu(AccountManager &am, BookManager &bm)
-	: accountManager(am), bookManager(bm) {}
+ReaderMenu::ReaderMenu(AccountManager &am, BookManager &bm, UserManager &um)
+	: accountManager(am), bookManager(bm), userManager(um){}
 
 // 读者菜单
 void ReaderMenu::readerMenu() {
 	bool exitMenu = false;
 	do {
+		
+		 if (accountManager.getCurrentUser() != "admin" &&
+            userManager.needsPasswordReset(accountManager.getCurrentUser())) {
+            cout << "===== 您的密码已被管理员重置，请立即修改密码！ =====" << endl;
+            string newPassword;
+            cout << "请输入新密码：";
+            cin >> newPassword;
+            userManager.updatePassword(accountManager.getCurrentUser(), newPassword);
+            continue;
+        }
+		
 		int choice;
 		cout << "===== 读者菜单 =====" << endl;
 		cout << "1. 搜索图书" << endl;

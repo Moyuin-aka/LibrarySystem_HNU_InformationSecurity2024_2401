@@ -63,7 +63,3 @@ void Charts::displayTopReaders() {
         cout << "暂无用户上榜！" << endl;
     }
 }
-
-
- 
-

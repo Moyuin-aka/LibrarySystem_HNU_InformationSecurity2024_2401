@@ -6,8 +6,8 @@
 using namespace std;
 
 // 构造函数实现
-MenuManager::MenuManager(AccountManager &am, BookManager &bm)
-    : accountManager(am), bookManager(bm) {}
+MenuManager::MenuManager(AccountManager &am, BookManager &bm, UserManager &um)
+    : accountManager(am), bookManager(bm), userManager(um) {}
 // 主菜单
 void MenuManager::mainMenu() {
     bool exitMenu = false;
@@ -28,7 +28,7 @@ void MenuManager::mainMenu() {
                 AdminMenu adminMenu(accountManager, bookManager);
                 adminMenu.adminMenu(); // 跳转管理员菜单
             } else if (role == 2) {
-                ReaderMenu readerMenu(accountManager, bookManager);
+                ReaderMenu readerMenu(accountManager, bookManager, userManager);
                 readerMenu.readerMenu(); // 跳转读者菜单
             }
             break;

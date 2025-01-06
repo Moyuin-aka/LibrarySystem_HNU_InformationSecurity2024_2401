@@ -17,9 +17,10 @@ void AdminMenu::adminMenu() {
 		cout << "3. 修改图书信息" << endl;
 		cout << "4. 搜索图书" << endl;
 		cout << "5. 显示所有图书" << endl;
-		cout << "6. 用户管理" << endl; // 新增选项
-		cout << "7. 返回上一级菜单" << endl;
-		cout << "请选择（1-7）：";
+		cout << "6. 用户管理" << endl;
+		cout << "7. 设置二级密码" << endl;
+		cout << "8. 返回上一级菜单" << endl;
+		cout << "请选择（1-8）：";
 		cin >> choice;
 
 		switch (choice) {
@@ -78,48 +79,55 @@ void AdminMenu::adminMenu() {
 			case 5:
 				bookManager.displayAllBooks();
 				break;
-			case 6:{
+			case 6: {
 				bool exitUserMenu = false;
-		    do {
-		        int UserChoice;
-		        cout << "===== 用户管理 =====" << endl;
-		        cout << "1. 查看所有用户" << endl;
-		        cout << "2. 重置用户密码" << endl;
-		        cout << "3. 删除普通用户" << endl;
-		        cout << "4. 返回上一级菜单" << endl;
-		        cout << "请选择（1-4）：";
-		        cin >> UserChoice;
-		
-		        switch (UserChoice) {
-		        case 1:
-		            accountManager.displayAllUsers(); // 调用显示所有用户功能
-		            break;
-		        case 2: {
-		            string username;
-		            cout << "请输入要重置密码的用户名：";
-		            cin >> username;
-		            accountManager.resetPassword(username); // 调用重置密码功能
-		            break;
-		        }
-		        case 3: {
-		            string username;
-		            cout << "请输入要删除的用户名：";
-		            cin >> username;
-		            accountManager.deleteUser(username); // 调用删除用户功能
-		            break;
-		        }
-		        case 4:
-		            exitUserMenu = true;
-		            break;
-		        default:
-		            cout << "无效选择，请重试！" << endl;
-		            break;
-		        	}
-		    	} while (!exitUserMenu);
+				do {
+					int UserChoice;
+					cout << "===== 用户管理 =====" << endl;
+					cout << "1. 查看所有用户" << endl;
+					cout << "2. 重置用户密码" << endl;
+					cout << "3. 删除普通用户" << endl;
+					cout << "4. 返回上一级菜单" << endl;
+					cout << "请选择（1-4）：";
+					cin >> UserChoice;
+
+					switch (UserChoice) {
+						case 1:
+							accountManager.displayAllUsers(); // 调用显示所有用户功能
+							break;
+						case 2: {
+							string username;
+							cout << "请输入要重置密码的用户名：";
+							cin >> username;
+							accountManager.resetPassword(username); // 调用重置密码功能
+							break;
+						}
+						case 3: {
+							string username;
+							cout << "请输入要删除的用户名：";
+							cin >> username;
+							accountManager.deleteUser(username); // 调用删除用户功能
+							break;
+						}
+						case 4:
+							exitUserMenu = true;
+							break;
+						default:
+							cout << "无效选择，请重试！" << endl;
+							break;
+					}
+				} while (!exitUserMenu);
 				break;
 			}
-
-			case 7:
+			case 7: {
+				string password;
+				cout << "请输入要设置的二级密码：";
+				cin >> password;
+				accountManager.setSecondaryPassword(password);
+				break;
+				break;
+			}
+			case 8:
 				exitMenu = true;
 				break;
 			default:
