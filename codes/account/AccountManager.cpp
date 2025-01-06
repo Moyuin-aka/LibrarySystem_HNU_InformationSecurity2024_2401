@@ -36,3 +36,24 @@ void AccountManager::registerAccount() {
     cout << "注册成功！" << endl;
 }
 
+// 查看所有用户
+void AccountManager::displayAllUsers() {
+    cout << "===== 当前所有用户列表 =====" << endl;
+    userManager.displayUsers(); // 调用 UserManager 的显示方法
+}
+
+//重置用户密码
+void AccountManager::resetPassword(const string &username) {
+    string newPassword;
+    cout << "请输入用户 \"" << username << "\" 的新密码：";
+    cin >> newPassword;
+    userManager.resetPassword(username, newPassword); // 调用 UserManager 方法
+}
+
+//删除普通用户
+void AccountManager::deleteUser(const string &username) {
+    userManager.deleteUser(username); // 调用 UserManager 方法
+}
+
+
+

@@ -6,13 +6,17 @@
 using namespace std;
 
 class AccountManager {
-private:
-    UserManager &userManager; // 引用 UserManager
+	private:
+		UserManager &userManager; // 引用 UserManager
 
-public:
-    AccountManager(UserManager &um); // 构造函数，传入 UserManager
-    int login();                    // 登录功能
-    void registerAccount();         // 注册功能
+	public:
+		AccountManager(UserManager &um); // 构造函数，传入 UserManager
+		int login();                    // 登录功能
+		void registerAccount();         // 注册功能
+		void displayAllUsers();                            // 查看所有用户
+		void resetPassword(const string &username);        // 重置用户密码
+		void deleteUser(const string &username);           // 删除普通用户
+
 };
 
 #endif

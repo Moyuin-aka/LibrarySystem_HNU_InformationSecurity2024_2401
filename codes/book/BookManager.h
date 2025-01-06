@@ -21,6 +21,7 @@ public:
 	
     void searchByTitle(const string &title);       // 按题名搜索
     void searchByAuthor(const string &author);     // 按作者搜索
+    void searchByIsbn(const string &author);		//按图书ISBN搜索 
  	void displayAllBooks() const;    				// 显示所有图书
  	
  	void borrowBook(const string &title);  // 借书
