@@ -62,11 +62,25 @@ void ReaderMenu::readerMenu() {
 				break;
 			}
 			case 3: {
-				string title;
-				cout << "请输入要归还的图书题名：";
-				cin.ignore();
-				getline(cin, title);
-				bookManager.returnBook(title, accountManager.getCurrentUser()); // 传递当前用户名
+				cout << "===== 归还图书 =====" << endl;
+				cout << "1. 归还单本图书" << endl;
+				cout << "2. 一键归还所有图书" << endl; // 新增选项
+				cout << "请选择（1-2）：";
+
+				int returnChoice;
+				cin >> returnChoice;
+
+				if (returnChoice == 1) {
+					string title;
+					cout << "请输入要归还的图书题名：";
+					cin.ignore();
+					getline(cin, title);
+					bookManager.returnBook(title, accountManager.getCurrentUser()); // 归还单本图书
+				} else if (returnChoice == 2) {
+					bookManager.returnAllBooks(accountManager.getCurrentUser()); // 调用一键归还功能
+				} else {
+					cout << "无效选择，请重试！" << endl;
+				}
 				break;
 			}
 			case 5: {

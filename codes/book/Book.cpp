@@ -3,7 +3,7 @@
 using namespace std;
 
 Book::Book(string t, string i, string a, string p, double pr)
-    : title(t), isbn(i), author(a), publisher(p), price(pr) ,isBorrowed(false),borrower(""){}
+    : title(t), isbn(i), author(a), publisher(p), price(pr) ,isBorrowed(false),borrower(""), borrowCount(0){}
 
 // 显示图书信息
 void Book::display() const {

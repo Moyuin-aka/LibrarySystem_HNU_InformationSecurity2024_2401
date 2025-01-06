@@ -1,2 +1,2 @@
-C++ Basics|123456|John Doe|Inconewt|20|1|momo
-Advanced C++|123457|John Doe|Inconewt|30|1|momo
+C++ Basics|123456|John Doe|Inconewt|20|0||2
+Advanced C++|123457|John Doe|Inconewt|30|0||0

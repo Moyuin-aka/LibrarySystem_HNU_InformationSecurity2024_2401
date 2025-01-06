@@ -27,6 +27,7 @@ public:
  	
  	void borrowBook(const string &title, const string &username);  // 借书
 	void returnBook(const string &title, const string &username); // 还书
+	void returnAllBooks(const string &username); // 一键归还用户的所有借阅图书
 	
 	vector<Book>& getBooks(); // 返回 books 的引用
     void displayBooks() const;

@@ -86,7 +86,7 @@ void UserManager::deleteUser(const string &username) {
 }
 
 //users¸øÅÅĞĞ°ñ 
-vector<User>& UserManager::getUsers() {
+vector<User>& UserManager::getUsers(){
     return users;
 }
 

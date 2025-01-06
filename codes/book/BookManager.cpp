@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -18,6 +19,7 @@ void BookManager::loadBooks(const string &filename) {
         string title, isbn, author, publisher, borrower;
         double price;
         bool isBorrowed;
+        int borrowCount;
 
         istringstream stream(line);
 
@@ -26,18 +28,21 @@ void BookManager::loadBooks(const string &filename) {
         getline(stream, author, '|');
         getline(stream, publisher, '|');
         stream >> price;
-        stream.ignore(); // 忽略分隔符
+        stream.ignore();
         stream >> isBorrowed;
-        stream.ignore(); // 忽略分隔符
-        getline(stream, borrower);
+        stream.ignore();
+        getline(stream, borrower, '|');
+        stream >> borrowCount;
 
         Book book(title, isbn, author, publisher, price);
         book.isBorrowed = isBorrowed;
         book.borrower = borrower;
+        book.borrowCount = borrowCount; // 恢复借阅次数
         books.push_back(book);
     }
     file.close();
 }
+
 
 // 删除图书
 void BookManager::deleteBook(const string &title) {
@@ -86,7 +91,8 @@ void BookManager::saveBooks(const string &filename) {
 		     << book.publisher << "|"
 		     << book.price << "|"
 		     << book.isBorrowed << "|"
-		     << book.borrower << endl; // 保存借阅者信息
+		     << book.borrower << "|"
+             << book.borrowCount << endl; // 保存借阅者信息
 	}
 	file.close();
 }
@@ -260,6 +266,7 @@ void BookManager::borrowBook(const string &title, const string &username) {
 			} else {
 				book.isBorrowed = true;
 				book.borrower = username;
+				book.borrowCount++; 
 				cout << "用户 \"" << username << "\" 已成功借阅图书 \"" << title << "\"！" << endl;
 			}
 			return;
@@ -288,8 +295,57 @@ void BookManager::returnBook(const string &title, const string &username) {
 	cout << "未找到题名为 \"" << title << "\" 的图书。" << endl;
 }
 
+//一键还书 
+void BookManager::returnAllBooks(const string &username) {
+    bool hasBooksToReturn = false; // 判断用户是否有需要归还的书
+    vector<string> returnedBooks; // 存储归还的书籍记录
+
+    char confirm;
+    cout << "你确定要归还所有借阅的图书吗？(y/n)：";
+    cin >> confirm;
+    if (confirm != 'y' && confirm != 'Y') {
+        cout << "已取消一键归还操作。" << endl;
+        return;
+    }
+
+    for (auto &book : books) {
+        if (book.borrower == username) { 
+            book.isBorrowed = false;    
+            book.borrower = "";        
+            returnedBooks.push_back(book.title); // 保存归还记录
+            hasBooksToReturn = true;
+        }
+    }
+
+    if (!hasBooksToReturn) {
+        cout << "用户 \"" << username << "\" 没有需要归还的图书。" << endl;
+        return;
+    }
+
+    // 统计归还的书籍数量
+    cout << "一键归还完成，共归还 " << returnedBooks.size() << " 本图书！" << endl;
+
+    // 导出归还记录到文件
+    ofstream outFile("return_history.txt", ios::app); // 追加模式
+    if (!outFile.is_open()) {
+        cout << "无法保存归还记录到文件。" << endl;
+        return;
+    }
+
+    outFile << "用户: " << username << " 的归还记录：" << endl;
+    for (const auto &title : returnedBooks) {
+        outFile << "- " << title << endl;
+    }
+    outFile << "总计归还: " << returnedBooks.size() << " 本图书。" << endl;
+    outFile << "========================" << endl;
+    outFile.close();
+
+    cout << "归还记录已成功保存到 return_history.txt。" << endl;
+}
+
+
 //返回books给排行榜用 
-vector<Book>& BookManager::getBooks() {
+vector<Book>& BookManager::getBooks(){
     return books;
 }
 

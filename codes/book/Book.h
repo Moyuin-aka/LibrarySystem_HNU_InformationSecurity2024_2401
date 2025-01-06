@@ -14,6 +14,7 @@ public:
     double price;
     bool isBorrowed;   // 是否已借出
     string borrower;     // 借阅者用户名
+    int borrowCount;     // 借阅次数
 
 
     Book(string t, string i, string a, string p, double pr);

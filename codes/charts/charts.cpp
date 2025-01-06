@@ -17,22 +17,21 @@ void Charts::displayTopBooks() {
     vector<pair<string, int>> bookBorrowCounts;
 
     for (const auto &book : books) {
-        if (book.isBorrowed || !book.borrower.empty()) { // 被借阅过的图书才计入
-            int borrowCount = count_if(books.begin(), books.end(),
-                                       [&book](const Book &b) { return b.title == book.title && !b.borrower.empty(); });
-            bookBorrowCounts.emplace_back(book.title, borrowCount);
+        if (book.borrowCount > 0) { // 仅统计借阅次数大于 0 的书籍
+            bookBorrowCounts.emplace_back(book.title, book.borrowCount);
         }
     }
 
     // 按借阅次数排序
     sort(bookBorrowCounts.begin(), bookBorrowCounts.end(),
-         [](const pair<string, int> &a, const pair<string, int> &b) { return b.second < a.second; });
+         [](const pair<string, int> &a, const pair<string, int> &b) { return b.second > a.second; });
 
     // 显示前十
     for (size_t i = 0; i < bookBorrowCounts.size() && i < 10; ++i) {
         cout << i + 1 << ". " << bookBorrowCounts[i].first << " 借阅次数: " << bookBorrowCounts[i].second << endl;
     }
 }
+
 
 
 //读者借阅排行榜,十佳读者!
