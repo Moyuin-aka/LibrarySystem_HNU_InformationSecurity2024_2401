@@ -1,6 +1,7 @@
 #ifndef BOOKMANAGER_H
 #define BOOKMANAGER_H
 
+#include "../user/UserManager.h" 
 #include "Book.h"
 #include <vector>
 #include <string>
@@ -10,9 +11,11 @@ using namespace std;
 
 class BookManager {
 private:
+	UserManager &userManager;     // 引用 UserManager
     vector<Book> books;
 
 public:
+	BookManager(UserManager &um); // 构造函数
     void loadBooks(const string &filename);			//显示图书信息 
     void saveBooks(const string &filename);			//保存图书信息 
     void addBook(const Book &book);                // 添加图书

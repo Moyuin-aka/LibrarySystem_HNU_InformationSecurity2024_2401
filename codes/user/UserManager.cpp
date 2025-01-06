@@ -1,13 +1,38 @@
 #include "UserManager.h"
 #include <iostream>
 #include <fstream>
+#include <sstream> 
 using namespace std;
 
 // 构造函数
 UserManager::UserManager() {}
 
 // 加载用户数据
-void UserManager::loadUsers(const string &file) {
+void UserManager::loadUsers(const string &filename) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "无法打开用户数据文件：" << filename << endl;
+        return;
+    }
+
+    users.clear();
+    string line;
+    while (getline(file, line)) {
+        istringstream iss(line);
+        string username, password;
+        int role, borrowCount;
+        getline(iss, username, '|');
+        getline(iss, password, '|');
+        iss >> role;
+        iss.ignore();
+        iss >> borrowCount; // 加载借阅次数
+        users.emplace_back(username, password, role);
+        users.back().UserBorrow = borrowCount;
+    }
+    file.close();
+}
+
+/*void UserManager::loadUsers(const string &file) {
 	ifstream inFile(file);
 	if (!inFile.is_open()) return;
 
@@ -17,16 +42,32 @@ void UserManager::loadUsers(const string &file) {
 		users.emplace_back(username, password, role);
 	}
 	inFile.close();
-}
+}*/
 
 // 保存用户数据
-void UserManager::saveUsers(const string &file) {
+void UserManager::saveUsers(const string &filename) {
+    ofstream file(filename);
+    if (!file.is_open()) {
+        cout << "无法保存用户数据到文件：" << filename << endl;
+        return;
+    }
+
+    for (const auto &user : users) {
+        file << user.username << "|"
+             << user.password << "|"
+             << user.role << "|"
+             << user.UserBorrow << endl; // 保存借阅次数
+    }
+    file.close();
+}
+
+/*void UserManager::saveUsers(const string &file) {
 	ofstream outFile(file);
 	for (const auto &user : users) {
 		outFile << user.username << " " << user.password << " " << user.role << endl;
 	}
 	outFile.close();
-}
+}*/
 
 // 登录方法
 int UserManager::login(const string &username, const string &password) {
@@ -83,6 +124,17 @@ void UserManager::deleteUser(const string &username) {
 		}
 	}
 	cout << "未找到用户名为 \"" << username << "\" 的用户。" << endl;
+}
+
+//增加用户借阅次数
+void UserManager::incrementUserBorrow(const string &username) {
+    for (auto &user : users) {
+        if (user.username == username) {
+            user.UserBorrow++; 
+            return;
+        }
+    }
+    cout << "警告：未找到用户 \"" << username << "\"，无法更新借阅次数。" << endl;
 }
 
 //users给排行榜 

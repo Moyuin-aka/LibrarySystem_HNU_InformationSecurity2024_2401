@@ -20,6 +20,7 @@ public:
     void displayUsers();                 // 显示所有用户
     void resetPassword(const string &username, const string &newPassword); //重置用户密码 
 	void deleteUser(const string &username);//删除用户  
+	void incrementUserBorrow(const string &username); // 增加用户借阅次数
 	vector<User>& getUsers(); // 返回 user 的引用 
 };
 

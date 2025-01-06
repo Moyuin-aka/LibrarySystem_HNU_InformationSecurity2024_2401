@@ -45,22 +45,25 @@ void Charts::displayTopReaders() {
     vector<pair<string, int>> readerBorrowCounts;
 
     for (const auto &user : users) {
-        int borrowCount = count_if(bookManager.getBooks().begin(), bookManager.getBooks().end(),
-                                   [&user](const Book &b) { return b.borrower == user.username; });
-        if (borrowCount > 0) { // 借阅过书籍的用户才计入
-            readerBorrowCounts.emplace_back(user.username, borrowCount);
+        if (user.UserBorrow > 0) { // 借阅过书籍的用户才计入
+            readerBorrowCounts.emplace_back(user.username, user.UserBorrow);
         }
     }
 
-    // 按借阅次数排序
+    // 按借阅次数排序（降序）
     sort(readerBorrowCounts.begin(), readerBorrowCounts.end(),
-         [](const pair<string, int> &a, const pair<string, int> &b) { return b.second < a.second; });
+         [](const pair<string, int> &a, const pair<string, int> &b) { return b.second > a.second; });
 
     // 显示前十
     for (size_t i = 0; i < readerBorrowCounts.size() && i < 10; ++i) {
         cout << i + 1 << ". 用户: " << readerBorrowCounts[i].first << " 借阅次数: " << readerBorrowCounts[i].second << endl;
     }
+
+    if (readerBorrowCounts.empty()) {
+        cout << "暂无用户上榜！" << endl;
+    }
 }
+
 
  
 

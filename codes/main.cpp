@@ -7,7 +7,7 @@ using namespace std;
 
 // 全局变量
 UserManager userManager;
-BookManager bookManager;
+BookManager bookManager(userManager);
 
 int main() {
     // 加载数据

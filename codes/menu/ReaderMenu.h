@@ -14,8 +14,5 @@ public:
     void displayRecommendations();// 显示今日推荐书单,不知道塞哪里好... 
     void readerMenu(); // 读者菜单
 };
-    
-   
-
 #endif
 

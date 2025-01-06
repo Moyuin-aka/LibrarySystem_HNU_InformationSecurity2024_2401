@@ -1,2 +1,12 @@
-C++ Basics|123456|John Doe|Inconewt|20|0||2
+C++ Basics|123456|John Doe|Inconewt|20|0||3
 Advanced C++|123457|John Doe|Inconewt|30|0||0
+The Art of Computer Programming|9780321751041|Donald E. Knuth|Addison-Wesley|100|0||0
+Programming Pearls|9780201657883|Jon Bentley|Addison-Wesley|60|0||0
+Deep Learning|9780262035613|Ian Goodfellow|MIT Press|90|0||0
+Data Science from Scratch|9781491901427|Joel Grus|O'Reilly Media|50|0||0
+Linux Kernel Development|9780672329463|Robert Love|Addison-Wesley|75|0||0
+Computer Science Distilled|9780997316025|Wladston Ferreira Filho|Code Energy|40|0||0
+Introduction to Machine Learning|9780262028189|Ethem Alpaydin|MIT Press|85|0||1
+Artificial Intelligence: A Modern Approach|9780136042594|Stuart Russell & Peter Norvig|Pearson|120|0||0
+Clean Architecture|9780134494166|Robert C. Martin|Prentice Hall|65|0||0
+Design Patterns: Elements of Reusable Object-Oriented Software|9780201633610|Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides|Addison-Wesley|90|0||0

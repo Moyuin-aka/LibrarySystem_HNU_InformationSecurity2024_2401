@@ -1,4 +1,5 @@
 #include "BookManager.h"
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -6,6 +7,7 @@
 
 using namespace std;
 
+BookManager::BookManager(UserManager &um) : userManager(um) {}
 // 加载图书信息
 void BookManager::loadBooks(const string &filename) {
     ifstream file(filename);
@@ -267,6 +269,8 @@ void BookManager::borrowBook(const string &title, const string &username) {
 				book.isBorrowed = true;
 				book.borrower = username;
 				book.borrowCount++; 
+				userManager.incrementUserBorrow(username);
+
 				cout << "用户 \"" << username << "\" 已成功借阅图书 \"" << title << "\"！" << endl;
 			}
 			return;
