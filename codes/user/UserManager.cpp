@@ -32,17 +32,6 @@ void UserManager::loadUsers(const string &filename) {
     file.close();
 }
 
-/*void UserManager::loadUsers(const string &file) {
-	ifstream inFile(file);
-	if (!inFile.is_open()) return;
-
-	string username, password;
-	int role;
-	while (inFile >> username >> password >> role) {
-		users.emplace_back(username, password, role);
-	}
-	inFile.close();
-}*/
 
 // 保存用户数据
 void UserManager::saveUsers(const string &filename) {
@@ -61,13 +50,6 @@ void UserManager::saveUsers(const string &filename) {
     file.close();
 }
 
-/*void UserManager::saveUsers(const string &file) {
-	ofstream outFile(file);
-	for (const auto &user : users) {
-		outFile << user.username << " " << user.password << " " << user.role << endl;
-	}
-	outFile.close();
-}*/
 
 // 登录方法
 int UserManager::login(const string &username, const string &password) {
