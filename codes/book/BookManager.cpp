@@ -134,41 +134,103 @@ void BookManager::displayBooks() const {
 	}
 }
 
-// 按题名搜索
-void BookManager::searchByTitle(const string &title) {
-	for (const auto &book : books) {
-		if (book.title == title) {
-			book.display();
-			return;
-		}
-	}
-	cout << "未找到题名为 \"" << title << "\" 的图书。" << endl;
+// 按题名搜索,支持模糊搜索 
+void BookManager::searchByTitle(const string &titlePart) {
+    vector<Book> matchedBooks;
+
+    // 转换输入关键字为小写
+    string lowerTitlePart = titlePart;
+    transform(lowerTitlePart.begin(), lowerTitlePart.end(), lowerTitlePart.begin(), ::tolower);
+
+    // 搜索匹配的图书
+    for (const auto &book : books) {
+        // 转换书名为小写
+        string lowerTitle = book.title;
+        transform(lowerTitle.begin(), lowerTitle.end(), lowerTitle.begin(), ::tolower);
+
+        // 模糊匹配
+        if (lowerTitle.find(lowerTitlePart) != string::npos) {
+            matchedBooks.push_back(book);
+        }
+    }
+
+    // 如果没有找到匹配的图书
+    if (matchedBooks.empty()) {
+        cout << "未找到包含 \"" << titlePart << "\" 的图书。" << endl;
+        return;
+    }
+
+    // 按字典序排序
+    sort(matchedBooks.begin(), matchedBooks.end(),
+         [](const Book &a, const Book &b) { return a.title < b.title; });
+
+    // 显示匹配的图书总数
+    cout << "找到 " << matchedBooks.size() << " 本图书包含 \"" << titlePart << "\"：" << endl;
+
+    // 分页显示，每页最多显示 5 本图书
+    const int booksPerPage = 5;
+    int totalPages = (matchedBooks.size() + booksPerPage - 1) / booksPerPage;
+
+    for (int page = 0; page < totalPages; ++page) {
+        cout << "\n===== 第 " << page + 1 << " 页，共 " << totalPages << " 页 =====" << endl;
+
+        for (int i = page * booksPerPage; i < (page + 1) * booksPerPage && i < matchedBooks.size(); ++i) {
+            matchedBooks[i].display(); // 调用 Book 类的 display 方法显示图书信息
+        }
+
+        // 如果不是最后一页，提示用户是否继续
+        if (page < totalPages - 1) {
+            char choice;
+            cout << "是否继续查看下一页？(y/n)：";
+            cin >> choice;
+            if (choice != 'y' && choice != 'Y') {
+                break;
+            }
+        }
+    }
 }
 
-// 按作者搜索
+// 按作者搜索,支持模糊搜索 
 void BookManager::searchByAuthor(const string &author) {
-	vector<Book> authorBooks;
+    vector<Book> authorBooks;
 
-	for (const auto &book : books) {
-		if (book.author == author) {
-			authorBooks.push_back(book);
-		}
-	}
+    // 收集该作者的所有书籍
+    for (const auto &book : books) {
+        if (book.author == author) {
+            authorBooks.push_back(book);
+        }
+        // 支持部分匹配搜索,要不要留下呢 
+		if (book.author.find(author) != string::npos) {
+    	authorBooks.push_back(book);
+    	}
+    }
 
-	if (authorBooks.empty()) {
-		cout << "未找到作者为 \"" << author << "\" 的图书。" << endl;
-		return;
-	}
-	// 按字典序排序
-	sort(authorBooks.begin(), authorBooks.end());
+    // 如果未找到任何书籍
+    if (authorBooks.empty()) {
+        cout << "未找到作者为 \"" << author << "\" 的图书。" << endl;
+        return;
+    }
+	
+	
 
-	cout << "作者 \"" << author << "\" 的图书如下：" << endl;
-	for (const auto &book : authorBooks) {
-		book.display();
-	}
+    // 按书名的字典序排序,根据字母排序,忽略大小写 
+    sort(authorBooks.begin(), authorBooks.end(),
+     [](const Book &a, const Book &b) {
+         string titleA = a.title, titleB = b.title;
+         transform(titleA.begin(), titleA.end(), titleA.begin(), ::tolower);
+         transform(titleB.begin(), titleB.end(), titleB.begin(), ::tolower);
+         return titleA < titleB;
+     });
+
+    // 输出结果
+    cout << "作者 \"" << author << "\" 的图书如下：" << endl;
+    for (const auto &book : authorBooks) {
+        book.display(); // 调用 Book 类的 display 方法显示信息
+    }
 }
 
-//按isbn搜索
+
+//按isbn精确搜索
 	void BookManager::searchByIsbn(const string &isbn) {
 		for (const auto &book : books) {
 			if (book.isbn == isbn) {

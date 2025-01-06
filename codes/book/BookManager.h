@@ -4,7 +4,8 @@
 #include "Book.h"
 #include <vector>
 #include <string>
-#include<algorithm>
+#include <algorithm>
+#include <cctype> 
 using namespace std;
 
 class BookManager {
