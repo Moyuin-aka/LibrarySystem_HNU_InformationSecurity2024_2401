@@ -24,7 +24,7 @@ void Charts::displayTopBooks() {
 
     // 按借阅次数排序
     sort(bookBorrowCounts.begin(), bookBorrowCounts.end(),
-         [](const pair<string, int> &a, const pair<string, int> &b) { return b.second > a.second; });
+         [](const pair<string, int> &a, const pair<string, int> &b) { return a.second > b.second; });
 
     // 显示前十
     for (size_t i = 0; i < bookBorrowCounts.size() && i < 10; ++i) {
@@ -52,7 +52,7 @@ void Charts::displayTopReaders() {
 
     // 按借阅次数排序（降序）
     sort(readerBorrowCounts.begin(), readerBorrowCounts.end(),
-         [](const pair<string, int> &a, const pair<string, int> &b) { return b.second > a.second; });
+         [](const pair<string, int> &a, const pair<string, int> &b) { return a.second > b.second; });
 
     // 显示前十
     for (size_t i = 0; i < readerBorrowCounts.size() && i < 10; ++i) {
