@@ -18,6 +18,9 @@ public:
     int login(const string &username, const string &password); // 登录方法
     void registerUser(const string &username, const string &password, int role); // 注册用户
     void displayUsers();                 // 显示所有用户
+    void resetPassword(const string &username, const string &newPassword); //重置用户密码 
+	void deleteUser(const string &username);//删除用户 
+
 };
 
 #endif

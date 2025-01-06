@@ -25,7 +25,9 @@ void ReaderMenu::readerMenu() {
             int searchChoice;
             cout << "1. 按题名搜索" << endl;
             cout << "2. 按作者搜索" << endl;
-            cout << "请选择（1-2）：";
+            cout << "3. 按ISBN搜索" << endl; // 新增选项
+            cout << "4. 返回上一级菜单" << endl; // 新增选项
+            cout << "请选择（1-4）：";
             cin >> searchChoice;
             if (searchChoice == 1) {
                 string title;
@@ -39,7 +41,14 @@ void ReaderMenu::readerMenu() {
                 cin.ignore();
                 getline(cin, author);
                 bookManager.searchByAuthor(author);
-            } else {
+            } else if (searchChoice == 3) { // 添加按ISBN搜索
+        		string isbn;
+        		cout << "请输入ISBN：";
+        		cin.ignore();
+        		getline(cin, isbn);
+        		bookManager.searchByIsbn(isbn);
+			} else if(searchChoice == 4) break;	
+			else {
                 cout << "无效选择，请重试！" << endl;
             }
             break;
