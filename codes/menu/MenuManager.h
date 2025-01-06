@@ -15,7 +15,6 @@ private:
 public:
     MenuManager(AccountManager &am, BookManager &bm); // 构造函数
     void mainMenu();      // 主菜单
-    void readerMenu();    // 读者菜单
 };
 
 #endif

@@ -19,7 +19,7 @@ void AdminMenu::adminMenu() {
 		cout << "5. 显示所有图书" << endl;
 		cout << "6. 用户管理" << endl; // 新增选项
 		cout << "7. 返回上一级菜单" << endl;
-		cout << "请选择（1-6）：";
+		cout << "请选择（1-7）：";
 		cin >> choice;
 
 		switch (choice) {

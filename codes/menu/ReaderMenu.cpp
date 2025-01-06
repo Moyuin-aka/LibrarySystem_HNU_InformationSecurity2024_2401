@@ -16,9 +16,12 @@ void ReaderMenu::readerMenu() {
 		cout << "2. 借书" << endl;
 		cout << "3. 还书" << endl;
 		cout << "4. 显示所有图书" << endl;
-		cout << "5. 返回上一级菜单" << endl;
-		cout << "请选择（1-5）：";
+		cout << "5. 今日推荐" << endl;
+		cout << "6. 返回上一级菜单" << endl;
+		cout << "请选择（1-6）：";
 		cin >> choice;
+
+
 
 		switch (choice) {
 			case 1: {
@@ -83,10 +86,15 @@ void ReaderMenu::readerMenu() {
 				}
 				break;
 			}
-			case 5: {
+			case 6: {
 				exitMenu = true;
 				break;
 			}
+			case 5: {
+				displayRecommendations(); 
+				break;
+			}
+
 			case 4: {
 				bookManager.displayAllBooks();
 				break;
@@ -96,5 +104,40 @@ void ReaderMenu::readerMenu() {
 				break;
 		}
 	} while (!exitMenu);
+}
+
+//今日书单 
+void ReaderMenu::displayRecommendations() {
+    cout << "===== 今日推荐书单 =====" << endl;
+
+    vector<Book>& books = bookManager.getBooks();
+
+    vector<pair<Book, int>> bookBorrowCounts;
+
+    for (const auto &book : books) {
+        if (book.borrowCount > 0) { // 仅推荐借阅次数大于 0 的书籍
+            bookBorrowCounts.emplace_back(book, book.borrowCount);
+        }
+    }
+    sort(bookBorrowCounts.begin(), bookBorrowCounts.end(),
+         [](const pair<Book, int> &a, const pair<Book, int> &b) {
+             if (a.second == b.second) {
+                 return a.first.title < b.first.title; // 按题名字典序排序
+             }
+             return a.second > b.second; // 按借阅次数排序（降序）
+         });
+
+    int count = 0;
+    for (const auto &entry : bookBorrowCounts) {
+        if (count >= 3) break; // 最多推荐 3 本
+        cout << count + 1 << ". " << entry.first.title
+             << " (作者: " << entry.first.author
+             << ", 借阅次数: " << entry.second << ")" << endl;
+        count++;
+    }
+
+    if (count == 0) {
+        cout << "暂无热门图书推荐，请稍后再试！" << endl;
+    }
 }
 
