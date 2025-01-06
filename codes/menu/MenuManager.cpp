@@ -2,6 +2,7 @@
 #include "AdminMenu.h"
 #include "ReaderMenu.h" 
 #include <iostream>
+#include <string>
 using namespace std;
 
 // 构造函数实现
@@ -15,8 +16,9 @@ void MenuManager::mainMenu() {
         cout << "===== 图书管理系统 =====" << endl;
         cout << "1. 登录" << endl;
         cout << "2. 注册" << endl;
-        cout << "3. 退出系统" << endl;
-        cout << "请选择（1-3）：";
+        cout << "3. 借阅排行榜" << endl; // 新增排行榜选项
+        cout << "4. 退出系统" << endl;
+        cout << "请选择（1-4）：";
         cin >> choice;
 
         switch (choice) {
@@ -34,7 +36,26 @@ void MenuManager::mainMenu() {
         case 2:
             accountManager.registerAccount();
             break;
-        case 3:
+        case 3: {
+            Charts charts(bookManager, accountManager.getUserManager());
+            cout << "===== 借阅排行榜 =====" << endl;
+            cout << "1. 图书借阅排行榜" << endl;
+            cout << "2. 十佳读者排行榜" << endl;
+            cout << "请选择（1-2）：";
+
+            int chartChoice;
+            cin >> chartChoice;
+
+            if (chartChoice == 1) {
+                charts.displayTopBooks(); // 图书借阅排行榜
+            } else if (chartChoice == 2) {
+                charts.displayTopReaders(); // 十佳读者排行榜
+            } else {
+                cout << "无效选择，请重试！" << endl;
+            }
+            break;
+        }
+        case 4:
             cout << "感谢使用系统，再见！" << endl;
             exitMenu = true; // 退出主菜单
             break;

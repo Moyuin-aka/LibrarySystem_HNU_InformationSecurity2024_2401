@@ -3,6 +3,7 @@
 
 #include "../account/AccountManager.h"
 #include "../book/BookManager.h"
+#include "../charts/Charts.h"
 #include "AdminMenu.h"
 #include "ReaderMenu.h" 
 

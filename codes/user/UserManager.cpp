@@ -85,4 +85,10 @@ void UserManager::deleteUser(const string &username) {
 	cout << "未找到用户名为 \"" << username << "\" 的用户。" << endl;
 }
 
+//users给排行榜 
+vector<User>& UserManager::getUsers() {
+    return users;
+}
+
+
 

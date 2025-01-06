@@ -15,23 +15,29 @@ void BookManager::loadBooks(const string &filename) {
 
     string line;
     while (getline(file, line)) {
-        string title, isbn, author, publisher;
+        string title, isbn, author, publisher, borrower;
         double price;
+        bool isBorrowed;
 
-        // 使用字符串流解析每一行
         istringstream stream(line);
 
-        getline(stream, title, '|'); // 用 "|" 作为分隔符读取图书名称
-        getline(stream, isbn, '|'); // 读取 ISBN
-        getline(stream, author, '|'); // 读取作者
-        getline(stream, publisher, '|'); // 读取出版社
-        stream >> price; // 读取价格
+        getline(stream, title, '|');
+        getline(stream, isbn, '|');
+        getline(stream, author, '|');
+        getline(stream, publisher, '|');
+        stream >> price;
+        stream.ignore(); // 忽略分隔符
+        stream >> isBorrowed;
+        stream.ignore(); // 忽略分隔符
+        getline(stream, borrower);
 
-        books.emplace_back(title, isbn, author, publisher, price);
+        Book book(title, isbn, author, publisher, price);
+        book.isBorrowed = isBorrowed;
+        book.borrower = borrower;
+        books.push_back(book);
     }
     file.close();
 }
-
 
 // 删除图书
 void BookManager::deleteBook(const string &title) {
@@ -67,20 +73,22 @@ void BookManager::updateBook(const string &title) {
 
 // 保存图书信息
 void BookManager::saveBooks(const string &filename) {
-    ofstream file(filename);
-    if (!file.is_open()) {
-        cout << "无法打开文件：" << filename << endl;
-        return;
-    }
+	ofstream file(filename);
+	if (!file.is_open()) {
+		cout << "无法打开文件：" << filename << endl;
+		return;
+	}
 
-    for (const auto &book : books) {
-        file << book.title << "|" 
-             << book.isbn << "|"
-             << book.author << "|"
-             << book.publisher << "|"
-             << book.price << endl; // 使用 "|" 作为分隔符
-    }
-    file.close();
+	for (const auto &book : books) {
+		file << book.title << "|"
+		     << book.isbn << "|"
+		     << book.author << "|"
+		     << book.publisher << "|"
+		     << book.price << "|"
+		     << book.isBorrowed << "|"
+		     << book.borrower << endl; // 保存借阅者信息
+	}
+	file.close();
 }
 
 
@@ -134,122 +142,125 @@ void BookManager::displayBooks() const {
 	}
 }
 
-// 按题名搜索,支持模糊搜索 
+// 按题名搜索,支持模糊搜索
 void BookManager::searchByTitle(const string &titlePart) {
-    vector<Book> matchedBooks;
+	vector<Book> matchedBooks;
 
-    // 转换输入关键字为小写
-    string lowerTitlePart = titlePart;
-    transform(lowerTitlePart.begin(), lowerTitlePart.end(), lowerTitlePart.begin(), ::tolower);
+	// 转换输入关键字为小写
+	string lowerTitlePart = titlePart;
+	transform(lowerTitlePart.begin(), lowerTitlePart.end(), lowerTitlePart.begin(), ::tolower);
 
-    // 搜索匹配的图书
-    for (const auto &book : books) {
-        // 转换书名为小写
-        string lowerTitle = book.title;
-        transform(lowerTitle.begin(), lowerTitle.end(), lowerTitle.begin(), ::tolower);
+	// 搜索匹配的图书
+	for (const auto &book : books) {
+		// 转换书名为小写
+		string lowerTitle = book.title;
+		transform(lowerTitle.begin(), lowerTitle.end(), lowerTitle.begin(), ::tolower);
 
-        // 模糊匹配
-        if (lowerTitle.find(lowerTitlePart) != string::npos) {
-            matchedBooks.push_back(book);
-        }
-    }
+		// 模糊匹配
+		if (lowerTitle.find(lowerTitlePart) != string::npos) {
+			matchedBooks.push_back(book);
+		}
+	}
 
-    // 如果没有找到匹配的图书
-    if (matchedBooks.empty()) {
-        cout << "未找到包含 \"" << titlePart << "\" 的图书。" << endl;
-        return;
-    }
+	// 如果没有找到匹配的图书
+	if (matchedBooks.empty()) {
+		cout << "未找到包含 \"" << titlePart << "\" 的图书。" << endl;
+		return;
+	}
 
-    // 按字典序排序
-    sort(matchedBooks.begin(), matchedBooks.end(),
-         [](const Book &a, const Book &b) { return a.title < b.title; });
+	// 按字典序排序
+	sort(matchedBooks.begin(), matchedBooks.end(),
+	[](const Book &a, const Book &b) {
+		return a.title < b.title;
+	});
 
-    // 显示匹配的图书总数
-    cout << "找到 " << matchedBooks.size() << " 本图书包含 \"" << titlePart << "\"：" << endl;
+	// 显示匹配的图书总数
+	cout << "找到 " << matchedBooks.size() << " 本图书包含 \"" << titlePart << "\"：" << endl;
 
-    // 分页显示，每页最多显示 5 本图书
-    const int booksPerPage = 5;
-    int totalPages = (matchedBooks.size() + booksPerPage - 1) / booksPerPage;
+	// 分页显示，每页最多显示 5 本图书
+	const int booksPerPage = 5;
+	int totalPages = (matchedBooks.size() + booksPerPage - 1) / booksPerPage;
 
-    for (int page = 0; page < totalPages; ++page) {
-        cout << "\n===== 第 " << page + 1 << " 页，共 " << totalPages << " 页 =====" << endl;
+	for (int page = 0; page < totalPages; ++page) {
+		cout << "\n===== 第 " << page + 1 << " 页，共 " << totalPages << " 页 =====" << endl;
 
-        for (int i = page * booksPerPage; i < (page + 1) * booksPerPage && i < matchedBooks.size(); ++i) {
-            matchedBooks[i].display(); // 调用 Book 类的 display 方法显示图书信息
-        }
+		for (int i = page * booksPerPage; i < (page + 1) * booksPerPage && i < matchedBooks.size(); ++i) {
+			matchedBooks[i].display(); // 调用 Book 类的 display 方法显示图书信息
+		}
 
-        // 如果不是最后一页，提示用户是否继续
-        if (page < totalPages - 1) {
-            char choice;
-            cout << "是否继续查看下一页？(y/n)：";
-            cin >> choice;
-            if (choice != 'y' && choice != 'Y') {
-                break;
-            }
-        }
-    }
+		// 如果不是最后一页，提示用户是否继续
+		if (page < totalPages - 1) {
+			char choice;
+			cout << "是否继续查看下一页？(y/n)：";
+			cin >> choice;
+			if (choice != 'y' && choice != 'Y') {
+				break;
+			}
+		}
+	}
 }
 
-// 按作者搜索,支持模糊搜索 
+// 按作者搜索,支持模糊搜索
 void BookManager::searchByAuthor(const string &author) {
-    vector<Book> authorBooks;
+	vector<Book> authorBooks;
 
-    // 收集该作者的所有书籍
-    for (const auto &book : books) {
-        if (book.author == author) {
-            authorBooks.push_back(book);
-        }
-        // 支持部分匹配搜索,要不要留下呢 
+	// 收集该作者的所有书籍
+	for (const auto &book : books) {
+		if (book.author == author) {
+			authorBooks.push_back(book);
+		}
+		// 支持部分匹配搜索,要不要留下呢
 		if (book.author.find(author) != string::npos) {
-    	authorBooks.push_back(book);
-    	}
-    }
+			authorBooks.push_back(book);
+		}
+	}
 
-    // 如果未找到任何书籍
-    if (authorBooks.empty()) {
-        cout << "未找到作者为 \"" << author << "\" 的图书。" << endl;
-        return;
-    }
-	
-	
+	// 如果未找到任何书籍
+	if (authorBooks.empty()) {
+		cout << "未找到作者为 \"" << author << "\" 的图书。" << endl;
+		return;
+	}
 
-    // 按书名的字典序排序,根据字母排序,忽略大小写 
-    sort(authorBooks.begin(), authorBooks.end(),
-     [](const Book &a, const Book &b) {
-         string titleA = a.title, titleB = b.title;
-         transform(titleA.begin(), titleA.end(), titleA.begin(), ::tolower);
-         transform(titleB.begin(), titleB.end(), titleB.begin(), ::tolower);
-         return titleA < titleB;
-     });
 
-    // 输出结果
-    cout << "作者 \"" << author << "\" 的图书如下：" << endl;
-    for (const auto &book : authorBooks) {
-        book.display(); // 调用 Book 类的 display 方法显示信息
-    }
+
+	// 按书名的字典序排序,根据字母排序,忽略大小写
+	sort(authorBooks.begin(), authorBooks.end(),
+	[](const Book &a, const Book &b) {
+		string titleA = a.title, titleB = b.title;
+		transform(titleA.begin(), titleA.end(), titleA.begin(), ::tolower);
+		transform(titleB.begin(), titleB.end(), titleB.begin(), ::tolower);
+		return titleA < titleB;
+	});
+
+	// 输出结果
+	cout << "作者 \"" << author << "\" 的图书如下：" << endl;
+	for (const auto &book : authorBooks) {
+		book.display(); // 调用 Book 类的 display 方法显示信息
+	}
 }
 
 
 //按isbn精确搜索
-	void BookManager::searchByIsbn(const string &isbn) {
-		for (const auto &book : books) {
-			if (book.isbn == isbn) {
-				book.display();
-				return;
-			}
+void BookManager::searchByIsbn(const string &isbn) {
+	for (const auto &book : books) {
+		if (book.isbn == isbn) {
+			book.display();
+			return;
 		}
-		cout << "未找到ISBN为 \"" << isbn << "\" 的图书。" << endl;
 	}
+	cout << "未找到ISBN为 \"" << isbn << "\" 的图书。" << endl;
+}
 
 // 借书
-void BookManager::borrowBook(const string &title) {
+void BookManager::borrowBook(const string &title, const string &username) {
 	for (auto &book : books) {
 		if (book.title == title) {
 			if (book.isBorrowed) {
-				cout << "图书 \"" << title << "\" 已被借出！" << endl;
+				cout << "图书 \"" << title << "\" 已被借出，当前借阅者为：" << book.borrower << endl;
 			} else {
 				book.isBorrowed = true;
-				cout << "您已成功借阅图书 \"" << title << "\"！" << endl;
+				book.borrower = username;
+				cout << "用户 \"" << username << "\" 已成功借阅图书 \"" << title << "\"！" << endl;
 			}
 			return;
 		}
@@ -257,20 +268,30 @@ void BookManager::borrowBook(const string &title) {
 	cout << "未找到题名为 \"" << title << "\" 的图书。" << endl;
 }
 
+
 // 还书
-void BookManager::returnBook(const string &title) {
+void BookManager::returnBook(const string &title, const string &username) {
 	for (auto &book : books) {
 		if (book.title == title) {
 			if (!book.isBorrowed) {
 				cout << "图书 \"" << title << "\" 未被借出，无需归还！" << endl;
+			} else if (book.borrower != username) {
+				cout << "用户 \"" << username << "\" 无权归还图书 \"" << title << "\"！当前借阅者为：" << book.borrower << endl;
 			} else {
 				book.isBorrowed = false;
-				cout << "您已成功归还图书 \"" << title << "\"！" << endl;
+				book.borrower = "";
+				cout << "用户 \"" << username << "\" 已成功归还图书 \"" << title << "\"！" << endl;
 			}
 			return;
 		}
 	}
 	cout << "未找到题名为 \"" << title << "\" 的图书。" << endl;
 }
+
+//返回books给排行榜用 
+vector<Book>& BookManager::getBooks() {
+    return books;
+}
+
 
 

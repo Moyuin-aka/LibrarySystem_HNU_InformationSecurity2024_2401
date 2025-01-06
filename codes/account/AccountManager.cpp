@@ -16,13 +16,34 @@ int AccountManager::login() {
     int role = userManager.login(username, password);
     if (role == 1) {
         cout << "欢迎管理员登录！" << endl;
+        currentUser = username; // 更新当前用户
+    } else if (role == 2) {
+        cout << "欢迎读者登录！" << endl;
+        currentUser = username; // 更新当前用户
+    } else {
+        cout << "登录失败，请检查用户名和密码！" << endl;
+        currentUser = ""; // 清空当前用户
+    }
+    return role;
+}
+
+/*int AccountManager::login() {
+    string username, password;
+    cout << "请输入用户名：";
+    cin >> username;
+    cout << "请输入密码：";
+    cin >> password;
+
+    int role = userManager.login(username, password);
+    if (role == 1) {
+        cout << "欢迎管理员登录！" << endl;
     } else if (role == 2) {
         cout << "欢迎读者登录！" << endl;
     } else {
         cout << "登录失败，请检查用户名和密码！" << endl;
     }
     return role;
-}
+}*/
 
 // 注册功能
 void AccountManager::registerAccount() {
@@ -54,6 +75,17 @@ void AccountManager::resetPassword(const string &username) {
 void AccountManager::deleteUser(const string &username) {
     userManager.deleteUser(username); // 调用 UserManager 方法
 }
+
+//获取当前登录用户 
+string AccountManager::getCurrentUser() const {
+    return currentUser;
+}
+
+//提供usermanager给排行榜 
+UserManager& AccountManager::getUserManager() {
+    return userManager;
+}
+
 
 
 

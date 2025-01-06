@@ -4,8 +4,8 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = main.o user/User.o book/Book.o book/BookManager.o user/UserManager.o account/AccountManager.o menu/MenuManager.o menu/AdminMenu.o menu/ReaderMenu.o
-LINKOBJ  = main.o user/User.o book/Book.o book/BookManager.o user/UserManager.o account/AccountManager.o menu/MenuManager.o menu/AdminMenu.o menu/ReaderMenu.o
+OBJ      = main.o user/User.o book/Book.o book/BookManager.o user/UserManager.o account/AccountManager.o menu/MenuManager.o menu/AdminMenu.o menu/ReaderMenu.o charts/charts.o
+LINKOBJ  = main.o user/User.o book/Book.o book/BookManager.o user/UserManager.o account/AccountManager.o menu/MenuManager.o menu/AdminMenu.o menu/ReaderMenu.o charts/charts.o
 LIBS     = -L"D:/Dev-Cpp/MinGW64/lib" -L"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
 INCS     = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -50,3 +50,6 @@ menu/AdminMenu.o: menu/AdminMenu.cpp
 
 menu/ReaderMenu.o: menu/ReaderMenu.cpp
 	$(CPP) -c menu/ReaderMenu.cpp -o menu/ReaderMenu.o $(CXXFLAGS)
+
+charts/charts.o: charts/charts.cpp
+	$(CPP) -c charts/charts.cpp -o charts/charts.o $(CXXFLAGS)

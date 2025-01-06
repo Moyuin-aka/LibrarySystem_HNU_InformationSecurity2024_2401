@@ -25,9 +25,10 @@ public:
     void searchByIsbn(const string &author);		//按图书ISBN搜索 
  	void displayAllBooks() const;    				// 显示所有图书
  	
- 	void borrowBook(const string &title);  // 借书
-	void returnBook(const string &title); // 还书
-
+ 	void borrowBook(const string &title, const string &username);  // 借书
+	void returnBook(const string &title, const string &username); // 还书
+	
+	vector<Book>& getBooks(); // 返回 books 的引用
     void displayBooks() const;
 };
 
