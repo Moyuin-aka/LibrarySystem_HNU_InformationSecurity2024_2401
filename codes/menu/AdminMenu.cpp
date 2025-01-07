@@ -158,6 +158,7 @@ int AdminMenu::getValidatedChoice(){
 
         if (!isValidNumber) {
             cout << "输入无效，请输入数字！" << endl;
+            cout << "请输入数字: " ;
             continue;
         }
 
