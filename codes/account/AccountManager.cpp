@@ -4,7 +4,9 @@
 using namespace std;
 
 // 构造函数
-AccountManager::AccountManager(UserManager &um) : userManager(um) {}
+AccountManager::AccountManager(UserManager &um) : userManager(um),adminSecondaryPassword("") {
+loadSecondaryPassword("admin_password.txt"); // 构造时自动加载二级密码文件}
+}
 
 // 登录功能
 int AccountManager::login() {
@@ -54,6 +56,14 @@ void AccountManager::saveSecondaryPassword(const string &filename) const {
         cerr << "无法保存二级密码到文件：" << filename << endl;
         return;
     }
+    
+    // 调试信息
+    if (adminSecondaryPassword.empty()) {
+        cerr << "警告：尝试保存空的二级密码！" << endl;
+    } else {
+        cout << "正在保存二级密码：" << adminSecondaryPassword << endl;
+    }
+
     file << adminSecondaryPassword << endl;
     file.close();
 }
@@ -63,11 +73,18 @@ void AccountManager::loadSecondaryPassword(const string &filename) {
     ifstream file(filename);
     if (!file.is_open()) {
         cerr << "无法加载二级密码文件：" << filename << endl;
+        cout << "二级密码文件未找到，系统将继续运行。请确保在管理员菜单中初始化二级密码！" << endl; // // 提供一个安全提示，可以选择忽略或初始化密码
         return;
     }
-    getline(file, adminSecondaryPassword);
+
+    string loadedPassword;
+    getline(file, loadedPassword); // 从文件读取密码
+    if (!loadedPassword.empty()) {
+        adminSecondaryPassword = loadedPassword;
+    }
     file.close();
 }
+
 
 // 注册功能
 void AccountManager::registerAccount() {
