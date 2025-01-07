@@ -6,20 +6,19 @@
 using namespace std;
 
 // 构造函数实现
-MenuManager::MenuManager(AccountManager &am, BookManager &bm, UserManager &um)
-    : accountManager(am), bookManager(bm), userManager(um) {}
+MenuManager::MenuManager(AccountManager &am, BookManager &bm, UserManager &mm)
+    : accountManager(am), bookManager(bm), userManager(mm) {}
 // 主菜单
 void MenuManager::mainMenu() {
     bool exitMenu = false;
     do {
-        int choice;
         cout << "===== 图书管理系统 =====" << endl;
         cout << "1. 登录" << endl;
         cout << "2. 注册" << endl;
         cout << "3. 借阅排行榜" << endl; // 新增排行榜选项
         cout << "4. 退出系统" << endl;
         cout << "请选择（1-4）：";
-        cin >> choice;
+        int choice = getValidatedChoice();
 
         switch (choice) {
         case 1: {
@@ -64,6 +63,35 @@ void MenuManager::mainMenu() {
             break;
         }
     } while (!exitMenu);
+}
+
+int MenuManager::getValidatedChoice(){
+    string input;
+    int choice;
+
+    while (true) {
+        cin >> input;
+
+        // 验证是否为数字
+        bool isValidNumber = true;
+        for (char c : input) {
+            if (!isdigit(c)) {
+                isValidNumber = false;
+                break;
+            }
+        }
+
+        if (!isValidNumber) {
+            cout << "输入无效，请输入数字！" << endl;
+            continue;
+        }
+
+        // 转换为整数
+        choice = stoi(input);// 输入合法
+        break;
+    }
+
+    return choice;
 }
 
 

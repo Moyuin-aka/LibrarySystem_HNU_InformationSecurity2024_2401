@@ -3,7 +3,6 @@
 
 #include "../account/AccountManager.h"
 #include "../book/BookManager.h"
-
 class AdminMenu {
 private:
     AccountManager &accountManager;
@@ -13,6 +12,7 @@ private:
 public:
     AdminMenu(AccountManager &am, BookManager &bm); // 构造函数
     void adminMenu(); // 管理员菜单
+    int getValidatedChoice(); 
 
 };
 

@@ -4,24 +4,23 @@ using namespace std;
 
 // 构造函数实现
 ReaderMenu::ReaderMenu(AccountManager &am, BookManager &bm, UserManager &um)
-	: accountManager(am), bookManager(bm), userManager(um){}
+	: accountManager(am), bookManager(bm), userManager(um) {}
 
 // 读者菜单
 void ReaderMenu::readerMenu() {
 	bool exitMenu = false;
 	do {
+
+		if (accountManager.getCurrentUser() != "admin" &&
+		        userManager.needsPasswordReset(accountManager.getCurrentUser())) {
+			cout << "===== 您的密码已被管理员重置，请立即修改密码！ =====" << endl;
+			string newPassword;
+			cout << "请输入新密码：";
+			cin >> newPassword;
+			userManager.updatePassword(accountManager.getCurrentUser(), newPassword);
+			continue;
+		}
 		
-		 if (accountManager.getCurrentUser() != "admin" &&
-            userManager.needsPasswordReset(accountManager.getCurrentUser())) {
-            cout << "===== 您的密码已被管理员重置，请立即修改密码！ =====" << endl;
-            string newPassword;
-            cout << "请输入新密码：";
-            cin >> newPassword;
-            userManager.updatePassword(accountManager.getCurrentUser(), newPassword);
-            continue;
-        }
-		
-		int choice;
 		cout << "===== 读者菜单 =====" << endl;
 		cout << "1. 搜索图书" << endl;
 		cout << "2. 借书" << endl;
@@ -30,19 +29,18 @@ void ReaderMenu::readerMenu() {
 		cout << "5. 今日推荐" << endl;
 		cout << "6. 返回上一级菜单" << endl;
 		cout << "请选择（1-6）：";
-		cin >> choice;
-
-
+		int choice = getValidatedChoice(); 
 
 		switch (choice) {
 			case 1: {
-				int searchChoice;
+				
 				cout << "1. 按题名搜索" << endl;
 				cout << "2. 按作者搜索" << endl;
 				cout << "3. 按ISBN搜索" << endl; // 新增选项
 				cout << "4. 返回上一级菜单" << endl; // 新增选项
 				cout << "请选择（1-4）：";
-				cin >> searchChoice;
+				
+				int searchChoice = getValidatedChoice();
 				if (searchChoice == 1) {
 					string title;
 					cout << "请输入题名：";
@@ -81,8 +79,8 @@ void ReaderMenu::readerMenu() {
 				cout << "2. 一键归还所有图书" << endl; // 新增选项
 				cout << "请选择（1-2）：";
 
-				int returnChoice;
-				cin >> returnChoice;
+				int returnChoice = getValidatedChoice();
+				
 
 				if (returnChoice == 1) {
 					string title;
@@ -102,7 +100,7 @@ void ReaderMenu::readerMenu() {
 				break;
 			}
 			case 5: {
-				displayRecommendations(); 
+				displayRecommendations();
 				break;
 			}
 
@@ -117,38 +115,66 @@ void ReaderMenu::readerMenu() {
 	} while (!exitMenu);
 }
 
-//今日书单 
+//今日书单
 void ReaderMenu::displayRecommendations() {
-    cout << "===== 今日推荐书单 =====" << endl;
+	cout << "===== 今日推荐书单 =====" << endl;
 
-    vector<Book>& books = bookManager.getBooks();
+	vector<Book>& books = bookManager.getBooks();
 
-    vector<pair<Book, int>> bookBorrowCounts;
+	vector<pair<Book, int>> bookBorrowCounts;
 
-    for (const auto &book : books) {
-        if (book.borrowCount > 0) { // 仅推荐借阅次数大于 0 的书籍
-            bookBorrowCounts.emplace_back(book, book.borrowCount);
-        }
-    }
-    sort(bookBorrowCounts.begin(), bookBorrowCounts.end(),
-         [](const pair<Book, int> &a, const pair<Book, int> &b) {
-             if (a.second == b.second) {
-                 return a.first.title < b.first.title; // 按题名字典序排序
-             }
-             return a.second > b.second; // 按借阅次数排序（降序）
-         });
+	for (const auto &book : books) {
+		if (book.borrowCount > 0) { // 仅推荐借阅次数大于 0 的书籍
+			bookBorrowCounts.emplace_back(book, book.borrowCount);
+		}
+	}
+	sort(bookBorrowCounts.begin(), bookBorrowCounts.end(),
+	[](const pair<Book, int> &a, const pair<Book, int> &b) {
+		if (a.second == b.second) {
+			return a.first.title < b.first.title; // 按题名字典序排序
+		}
+		return a.second > b.second; // 按借阅次数排序（降序）
+	});
 
-    int count = 0;
-    for (const auto &entry : bookBorrowCounts) {
-        if (count >= 3) break; // 最多推荐 3 本
-        cout << count + 1 << ". " << entry.first.title
-             << " (作者: " << entry.first.author
-             << ", 借阅次数: " << entry.second << ")" << endl;
-        count++;
-    }
+	int count = 0;
+	for (const auto &entry : bookBorrowCounts) {
+		if (count >= 3) break; // 最多推荐 3 本
+		cout << count + 1 << ". " << entry.first.title
+		     << " (作者: " << entry.first.author
+		     << ", 借阅次数: " << entry.second << ")" << endl;
+		count++;
+	}
 
-    if (count == 0) {
-        cout << "暂无热门图书推荐，请稍后再试！" << endl;
-    }
+	if (count == 0) {
+		cout << "暂无热门图书推荐，请稍后再试！" << endl;
+	}
 }
 
+int ReaderMenu::getValidatedChoice(){
+    string input;
+    int choice;
+
+    while (true) {
+        cin >> input;
+
+        // 验证是否为数字
+        bool isValidNumber = true;
+        for (char c : input) {
+            if (!isdigit(c)) {
+                isValidNumber = false;
+                break;
+            }
+        }
+
+        if (!isValidNumber) {
+            cout << "输入无效，请输入数字！" << endl;
+            continue;
+        }
+
+        // 转换为整数
+        choice = stoi(input);// 输入合法
+        break;
+    }
+
+    return choice;
+}

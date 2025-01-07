@@ -367,7 +367,7 @@ void BookManager::returnAllBooks(const string &username) {
     cout << "一键归还完成，共归还 " << returnedBooks.size() << " 本图书！" << endl;
 
     // 导出归还记录到文件
-    ofstream outFile("return_history.txt", ios::app); // 追加模式
+    ofstream outFile("return_history.txt", ios::app); 
     if (!outFile.is_open()) {
         cout << "无法保存归还记录到文件。" << endl;
         return;
@@ -381,7 +381,7 @@ void BookManager::returnAllBooks(const string &username) {
     outFile << "========================" << endl;
     outFile.close();
 
-    cout << "归还记录已成功保存到 return_history.txt。" << endl;
+    //cout << "归还记录已成功保存到 return_history.txt。" << endl;
 }
 
 

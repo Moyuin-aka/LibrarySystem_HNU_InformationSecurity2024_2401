@@ -115,6 +115,57 @@ void AccountManager::deleteUser(const string &username) {
 	userManager.deleteUser(username); // 调用 UserManager 方法
 }
 
+// 管理员查看所有归还记录
+void AccountManager::viewAllReturnHistoryPaged() const {
+        ifstream inFile("return_history.txt");
+    if (!inFile.is_open()) {
+        cout << "无法打开归还记录文件！" << endl;
+        return;
+    }
+    string line;
+    string currentUser;
+    vector<string> returnedBooks; // 存储当前用户的归还书籍
+    map<string, vector<string>> userHistory; // 存储所有用户的归还记录
+    while (getline(inFile, line)) {
+        if (line.rfind("用户: ", 0) == 0) { // 检查行是否以 "用户: " 开头
+            if (!currentUser.empty() && !returnedBooks.empty()) {// 如果当前有已记录的用户，则存储其归还记录
+                userHistory[currentUser] = returnedBooks;
+                returnedBooks.clear(); 
+            }
+            // 提取用户名
+            size_t startPos = line.find("用户: ") + 4;
+            size_t endPos = line.find(" 的归还记录:");
+            currentUser = line.substr(startPos, endPos - startPos);
+        }
+        else if (line.rfind("- ", 0) == 0) {
+            string bookTitle = line.substr(2); // 去掉 "- " 前缀
+            returnedBooks.push_back(bookTitle);
+        }
+        else if (line.rfind("=============================", 0) == 0) {// 检查行是否以 "=============================" 开头
+            if (!currentUser.empty() && !returnedBooks.empty()) {
+                userHistory[currentUser] = returnedBooks;
+                returnedBooks.clear(); // 清空记录，准备下一位用户
+            }
+        }
+    }
+    if (!currentUser.empty() && !returnedBooks.empty()) { // 处理最后一个用户（因为文件末尾没有分隔符）
+        userHistory[currentUser] = returnedBooks;
+    }
+
+    // 显示所有用户的归还记录
+    for (const auto &entry : userHistory) {
+        cout << "用户: " << entry.first << " 的归还记录:" << endl;
+        for (const auto &book : entry.second) {
+            cout << "- " << book << endl;
+        }
+        cout << "总计归还: " << entry.second.size() << " 本图书。" << endl;
+        cout << "=============================" << endl;
+    }
+
+    inFile.close();
+}
+
+
 //获取当前登录用户
 string AccountManager::getCurrentUser() const {
 	return currentUser;

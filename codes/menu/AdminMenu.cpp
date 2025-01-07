@@ -4,24 +4,24 @@ using namespace std;
 
 // 构造函数实现
 AdminMenu::AdminMenu(AccountManager &am, BookManager &bm)
-	: accountManager(am), bookManager(bm) {}
+	: accountManager(am), bookManager(bm){}
 
 // 管理员菜单
 void AdminMenu::adminMenu() {
 	bool exitMenu = false;
 	do {
-		int choice;
 		cout << "===== 管理员菜单 =====" << endl;
 		cout << "1. 添加图书" << endl;
 		cout << "2. 删除图书" << endl;
 		cout << "3. 修改图书信息" << endl;
 		cout << "4. 搜索图书" << endl;
 		cout << "5. 显示所有图书" << endl;
-		cout << "6. 用户管理" << endl;
-		cout << "7. 设置二级密码" << endl;
-		cout << "8. 返回上一级菜单" << endl;
-		cout << "请选择（1-8）：";
-		cin >> choice;
+		cout << "6. 查看所有归还记录" << endl; // 新增选项
+		cout << "7. 用户管理" << endl;
+		cout << "8. 设置二级密码" << endl;
+		cout << "9. 返回上一级菜单" << endl;
+		cout << "请选择（1-9）：";
+		int choice = getValidatedChoice();
 
 		switch (choice) {
 			case 1:
@@ -44,13 +44,13 @@ void AdminMenu::adminMenu() {
 				break;
 			}
 			case 4: {
-				int searchChoice;
 				cout << "1. 按题名搜索" << endl;
 				cout << "2. 按作者搜索" << endl;
-				cout << "3. 按ISBN搜索" << endl; // 新增选项
+				cout << "3. 按ISBN搜索" << endl;
 				cout << "4. 返回上一级菜单" << endl;
 				cout << "请选择（1-4）：";
-				cin >> searchChoice;
+				
+				int searchChoice =getValidatedChoice();
 				if (searchChoice == 1) {
 					string title;
 					cout << "请输入题名：";
@@ -80,16 +80,19 @@ void AdminMenu::adminMenu() {
 				bookManager.displayAllBooks();
 				break;
 			case 6: {
+				accountManager.viewAllReturnHistoryPaged(); // 调用新方法
+				break;
+			}
+			case 7: {
 				bool exitUserMenu = false;
 				do {
-					int UserChoice;
 					cout << "===== 用户管理 =====" << endl;
 					cout << "1. 查看所有用户" << endl;
 					cout << "2. 重置用户密码" << endl;
 					cout << "3. 删除普通用户" << endl;
 					cout << "4. 返回上一级菜单" << endl;
 					cout << "请选择（1-4）：";
-					cin >> UserChoice;
+					int UserChoice =getValidatedChoice();
 
 					switch (UserChoice) {
 						case 1:
@@ -119,7 +122,7 @@ void AdminMenu::adminMenu() {
 				} while (!exitUserMenu);
 				break;
 			}
-			case 7: {
+			case 8: {
 				string password;
 				cout << "请输入要设置的二级密码：";
 				cin >> password;
@@ -127,7 +130,7 @@ void AdminMenu::adminMenu() {
 				break;
 				break;
 			}
-			case 8:
+			case 9:
 				exitMenu = true;
 				break;
 			default:
@@ -135,5 +138,34 @@ void AdminMenu::adminMenu() {
 				break;
 		}
 	} while (!exitMenu);
+}
+
+int AdminMenu::getValidatedChoice(){
+    string input;
+    int choice;
+
+    while (true) {
+        cin >> input;
+
+        // 验证是否为数字
+        bool isValidNumber = true;
+        for (char c : input) {
+            if (!isdigit(c)) {
+                isValidNumber = false;
+                break;
+            }
+        }
+
+        if (!isValidNumber) {
+            cout << "输入无效，请输入数字！" << endl;
+            continue;
+        }
+
+        // 转换为整数
+        choice = stoi(input);// 输入合法
+        break;
+    }
+
+    return choice;
 }
 

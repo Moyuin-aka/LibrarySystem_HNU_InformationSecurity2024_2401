@@ -17,6 +17,7 @@ private:
 public:
     MenuManager(AccountManager &am, BookManager &bm, UserManager &um); // 构造函数
     void mainMenu();      // 主菜单
+    int getValidatedChoice(); // 用户输入验证声明
 };
 
 #endif
