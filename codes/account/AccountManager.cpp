@@ -56,13 +56,6 @@ void AccountManager::saveSecondaryPassword(const string &filename) const {
         cerr << "无法保存二级密码到文件：" << filename << endl;
         return;
     }
-    
-    // 调试信息
-    if (adminSecondaryPassword.empty()) {
-        cerr << "警告：尝试保存空的二级密码！" << endl;
-    } else {
-        cout << "正在保存二级密码：" << adminSecondaryPassword << endl;
-    }
 
     file << adminSecondaryPassword << endl;
     file.close();

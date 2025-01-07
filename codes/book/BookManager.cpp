@@ -132,15 +132,52 @@ void BookManager::interactiveAddBook() {
 
 // 显示所有图书
 void BookManager::displayAllBooks() const {
-	if (books.empty()) {
-		cout << "图书库为空。" << endl;
-		return;
-	}
+    if (books.empty()) {
+        cout << "图书库为空。" << endl;
+        return;
+    }
 
-	cout << "当前图书库中的图书：" << endl;
-	for (const auto &book : books) {
-		book.display();
-	}
+    const int booksPerPage = 5; // 每页显示的书籍数量
+    int currentPage = 0;
+    int totalPages = (books.size() + booksPerPage - 1) / booksPerPage; // 计算总页数
+
+    while (true) {
+        cout << "===== 图书库（页数 " << currentPage + 1 << " / " << totalPages << "） =====" << endl;
+
+        // 显示当前页的书籍
+        int startIdx = currentPage * booksPerPage;
+        int endIdx = min((int)books.size(), startIdx + booksPerPage);
+        for (int i = startIdx; i < endIdx; ++i) {
+            cout << i + 1 << ". ";
+            books[i].display(); // 假设 Book 类有 display() 方法
+        }
+
+        // 分页选项
+        cout << "==============================" << endl;
+        cout << "1: 上一页, 2: 下一页, q: 退出" << endl;
+        cout << "请输入选项: ";
+        char choice;
+        cin >> choice;
+
+        if (choice == '2' || choice == '2') {
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+            } else {
+                cout << "已经是最后一页了！" << endl;
+            }
+        } else if (choice == '1' || choice == '1') {
+            if (currentPage > 0) {
+                currentPage--;
+            } else {
+                cout << "已经是第一页了！" << endl;
+            }
+        } else if (choice == 'q' || choice == 'Q') {
+            cout << "已退出分页浏览！" << endl;
+            break;
+        } else {
+            cout << "无效选项，请重试！" << endl;
+        }
+    }
 }
 
 // 显示图书
