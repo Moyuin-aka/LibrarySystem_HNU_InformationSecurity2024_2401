@@ -1,0 +1,3 @@
+C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/codes/cmake-build-debug/CMakeFiles/codes.dir
+C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/codes/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/codes/cmake-build-debug/CMakeFiles/rebuild_cache.dir

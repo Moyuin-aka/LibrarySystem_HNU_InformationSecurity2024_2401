@@ -1,0 +1,12 @@
+# ninja log v6
+28	390	7618313490169339	CMakeFiles/codes.dir/user/User.cpp.obj	83766a98397ec79c
+7	396	7618313489969315	CMakeFiles/codes.dir/book/Book.cpp.obj	d06222ac59db3f1d
+20	490	7618313490089323	CMakeFiles/codes.dir/menu/MenuManager.cpp.obj	6ba467fa69e17cb6
+33	567	7618313490219341	CMakeFiles/codes.dir/user/UserManager.cpp.obj	ec6f3503b04e13f4
+2	629	7618313489909322	CMakeFiles/codes.dir/account/AccountManager.cpp.obj	46226c5b9dee4fc5
+16	507	7618313490059329	CMakeFiles/codes.dir/menu/AdminMenu.cpp.obj	a5d6fc6a81e9de5d
+22	603	7618313490119329	CMakeFiles/codes.dir/menu/ReaderMenu.cpp.obj	2e84248b86bfcc64
+14	629	7618313490039329	CMakeFiles/codes.dir/charts/charts.cpp.obj	6b76c7ef2db009a0
+10	746	7618313489999323	CMakeFiles/codes.dir/book/BookManager.cpp.obj	1d3f8f35137dcee6
+38	1363	7618313490269336	CMakeFiles/codes.dir/main.cpp.obj	e8b03ae2d01fde54
+1364	1454	7618313503534444	codes.exe	1096ff924195e8af

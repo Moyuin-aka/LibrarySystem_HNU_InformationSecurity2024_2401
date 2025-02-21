@@ -1,0 +1,62 @@
+[
+{
+  "directory": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles/codes.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\codes.dir\\account\\AccountManager.cpp.obj -c C:\\Users\\Moyuin\\Desktop\\CODE\\C1\\big_scale_programs\\LibrarySystem\\LibrarySystem_HNU_InformationSecurity2024_2401\\Vscode_codes\\account\\AccountManager.cpp",
+  "file": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/Vscode_codes/account/AccountManager.cpp",
+  "output": "CMakeFiles/codes.dir/account/AccountManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles/codes.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\codes.dir\\book\\Book.cpp.obj -c C:\\Users\\Moyuin\\Desktop\\CODE\\C1\\big_scale_programs\\LibrarySystem\\LibrarySystem_HNU_InformationSecurity2024_2401\\Vscode_codes\\book\\Book.cpp",
+  "file": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/Vscode_codes/book/Book.cpp",
+  "output": "CMakeFiles/codes.dir/book/Book.cpp.obj"
+},
+{
+  "directory": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles/codes.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\codes.dir\\book\\BookManager.cpp.obj -c C:\\Users\\Moyuin\\Desktop\\CODE\\C1\\big_scale_programs\\LibrarySystem\\LibrarySystem_HNU_InformationSecurity2024_2401\\Vscode_codes\\book\\BookManager.cpp",
+  "file": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/Vscode_codes/book/BookManager.cpp",
+  "output": "CMakeFiles/codes.dir/book/BookManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles/codes.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\codes.dir\\charts\\charts.cpp.obj -c C:\\Users\\Moyuin\\Desktop\\CODE\\C1\\big_scale_programs\\LibrarySystem\\LibrarySystem_HNU_InformationSecurity2024_2401\\Vscode_codes\\charts\\charts.cpp",
+  "file": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/Vscode_codes/charts/charts.cpp",
+  "output": "CMakeFiles/codes.dir/charts/charts.cpp.obj"
+},
+{
+  "directory": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles/codes.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\codes.dir\\menu\\AdminMenu.cpp.obj -c C:\\Users\\Moyuin\\Desktop\\CODE\\C1\\big_scale_programs\\LibrarySystem\\LibrarySystem_HNU_InformationSecurity2024_2401\\Vscode_codes\\menu\\AdminMenu.cpp",
+  "file": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/Vscode_codes/menu/AdminMenu.cpp",
+  "output": "CMakeFiles/codes.dir/menu/AdminMenu.cpp.obj"
+},
+{
+  "directory": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles/codes.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\codes.dir\\menu\\MenuManager.cpp.obj -c C:\\Users\\Moyuin\\Desktop\\CODE\\C1\\big_scale_programs\\LibrarySystem\\LibrarySystem_HNU_InformationSecurity2024_2401\\Vscode_codes\\menu\\MenuManager.cpp",
+  "file": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/Vscode_codes/menu/MenuManager.cpp",
+  "output": "CMakeFiles/codes.dir/menu/MenuManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles/codes.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\codes.dir\\menu\\ReaderMenu.cpp.obj -c C:\\Users\\Moyuin\\Desktop\\CODE\\C1\\big_scale_programs\\LibrarySystem\\LibrarySystem_HNU_InformationSecurity2024_2401\\Vscode_codes\\menu\\ReaderMenu.cpp",
+  "file": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/Vscode_codes/menu/ReaderMenu.cpp",
+  "output": "CMakeFiles/codes.dir/menu/ReaderMenu.cpp.obj"
+},
+{
+  "directory": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles/codes.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\codes.dir\\user\\User.cpp.obj -c C:\\Users\\Moyuin\\Desktop\\CODE\\C1\\big_scale_programs\\LibrarySystem\\LibrarySystem_HNU_InformationSecurity2024_2401\\Vscode_codes\\user\\User.cpp",
+  "file": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/Vscode_codes/user/User.cpp",
+  "output": "CMakeFiles/codes.dir/user/User.cpp.obj"
+},
+{
+  "directory": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles/codes.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\codes.dir\\user\\UserManager.cpp.obj -c C:\\Users\\Moyuin\\Desktop\\CODE\\C1\\big_scale_programs\\LibrarySystem\\LibrarySystem_HNU_InformationSecurity2024_2401\\Vscode_codes\\user\\UserManager.cpp",
+  "file": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/Vscode_codes/user/UserManager.cpp",
+  "output": "CMakeFiles/codes.dir/user/UserManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles/codes.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\codes.dir\\main.cpp.obj -c C:\\Users\\Moyuin\\Desktop\\CODE\\C1\\big_scale_programs\\LibrarySystem\\LibrarySystem_HNU_InformationSecurity2024_2401\\Vscode_codes\\main.cpp",
+  "file": "C:/Users/Moyuin/Desktop/CODE/C1/big_scale_programs/LibrarySystem/LibrarySystem_HNU_InformationSecurity2024_2401/Vscode_codes/main.cpp",
+  "output": "CMakeFiles/codes.dir/main.cpp.obj"
+}
+]
