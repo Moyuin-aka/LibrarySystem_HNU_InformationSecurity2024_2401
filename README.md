@@ -1,5 +1,6 @@
 # LibrarySystem_HNU_InformationSecurity2024_2401
-[点我查看中文介绍](README_zh.md)
+🌍 [🇺🇸 English](https://github.com/Moyuin-aka/LibrarySystem_HNU_InformationSecurity2024_2401/wiki/Home) | [🇨🇳 中文](https://github.com/Moyuin-aka/LibrarySystem_HNU_InformationSecurity2024_2401/wiki/Home_zh-CN)
+
 
 **Group Members: Xie Jingtian, Li Yixuan**
 
@@ -13,7 +14,7 @@
 
 - The file encoding for this version is uniformly set to **GBK and GB2312** (due to the presence of Chinese characters).  
 - This version is built using the project system in **DEVCPP** and **does not support CMake**. Using mainstream editors like **VS Code** or IDEs like **CLion** and **Visual Studio** may result in garbled text or compilation errors.  
-- The **.txt** files in this version may encounter reading errors or display garbled characters if opened in a non-GBK format.  
+- 该 **.txt** files in this version may encounter reading errors or display garbled characters if opened in a non-GBK format.  
 - Unless the school strictly requires using **DEVCPP** or other outdated IDEs for this library management project, **this version is not recommended**.  
 
 ---
