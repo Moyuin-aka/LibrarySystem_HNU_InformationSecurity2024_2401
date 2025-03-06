@@ -1,40 +1,33 @@
 # LibrarySystem_HNU_InformationSecurity2024_2401
-**group member: 谢静甜, 李怡萱**
+[点我查看中文介绍](README_zh.md)
 
-# 注意事项:
+**Group Members: Xie Jingtian, Li Yixuan**
 
-**该项目有两个版本。**
+# Notes:
 
----
-
-
-
-## DEVCPP5.11版本编辑
-
-- 该版本的文件编码统一为GBK和GB2312格式。（因为有中文）
-
-- 该版本使用DEVCPP自带的项目程序构建，**不支持CMAKE打开**，使用主流编辑器如VScode和主流IDE如Clion和Visual Studio等可能出现乱码与错误编译。
-
-- 该版本的txt文件在非GBK格式下打开可能出现读取错误，识别乱码的情况。
-
-- 除非学校硬性要求使用DEVCPP等老式IDE制作该图书馆管理项目大作业，**否则并不推荐该版本**。
-
-  ---
-
-  
-
-  
-
-## VSCode+CMake编辑
-
-- 该版本的文件编码统一为UTF-8格式。
-- 该文件可在任何支持CMake的程序里打开并运行，如VScode+Cmake插件，Clion等。
-- 通用性更强，编辑更方便。
-- DEVCPP5.11版本可能会因为不支持UTF-8的中文形式而**乱码**，并且DEVCPP无法支持CMake项目的构建运行，**不推荐使用DEVCPP5.11打开该版本**。
-- 高版本DEVCPP支持UTF-8形式中文，如果选择另一版本报错，请下载该版本并自行在DEV里面构建该项目。
+**This project has two versions.**
 
 ---
 
-大作业写起来还是很有意思的，你可以像堆积木一样在这个小项目中增加你自己想要实现的功能。
+## DEVCPP 5.11 Version  
 
-祝大家玩的愉快。:)
+- The file encoding for this version is uniformly set to **GBK and GB2312** (due to the presence of Chinese characters).  
+- This version is built using the project system in **DEVCPP** and **does not support CMake**. Using mainstream editors like **VS Code** or IDEs like **CLion** and **Visual Studio** may result in garbled text or compilation errors.  
+- The **.txt** files in this version may encounter reading errors or display garbled characters if opened in a non-GBK format.  
+- Unless the school strictly requires using **DEVCPP** or other outdated IDEs for this library management project, **this version is not recommended**.  
+
+---
+
+## VSCode + CMake Version  
+
+- The file encoding for this version is uniformly set to **UTF-8**.  
+- This version can be opened and run in any program that supports **CMake**, such as **VS Code + CMake plugin, CLion, etc.**  
+- It offers **better compatibility** and **a more convenient editing experience**.  
+- The **DEVCPP 5.11** version may experience **garbled text issues** due to lack of support for **UTF-8 Chinese characters**. Additionally, **DEVCPP does not support CMake project builds and execution**, so **it is not recommended to open this version with DEVCPP 5.11**.  
+- Newer versions of **DEVCPP** support **UTF-8** Chinese characters. If errors occur with another version, please download the correct one and manually build the project within DEV.  
+
+---
+
+Working on this project has been quite fun! You can add your own features to this small project just like building blocks.  
+
+Hope you all enjoy it. :)
