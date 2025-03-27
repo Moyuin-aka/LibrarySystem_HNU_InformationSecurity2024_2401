@@ -14,7 +14,7 @@
 
 - The file encoding for this version is uniformly set to **GBK and GB2312** (due to the presence of Chinese characters).  
 - This version is built using the project system in **DEVCPP** and **does not support CMake**. Using mainstream editors like **VS Code** or IDEs like **CLion** and **Visual Studio** may result in garbled text or compilation errors.  
-- 该 **.txt** files in this version may encounter reading errors or display garbled characters if opened in a non-GBK format.  
+- This **.txt** files in this version may encounter reading errors or display garbled characters if opened in a non-GBK format.  
 - Unless the school strictly requires using **DEVCPP** or other outdated IDEs for this library management project, **this version is not recommended**.  
 
 ---
